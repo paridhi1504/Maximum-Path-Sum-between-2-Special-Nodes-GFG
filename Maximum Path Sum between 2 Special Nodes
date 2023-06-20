@@ -1,0 +1,41 @@
+class Solution {
+public:
+
+    
+    int maxSum(Node *root, int &sum){
+        if(!root)
+        return sum;
+        
+        if(!root->left && !root->right){
+            return root->data;
+        }
+        
+        int left = maxSum(root->left, sum);
+        int right = maxSum(root->right,sum);
+        
+        
+        if(root->left && root->right)
+        {
+            sum = max(sum,root->data+left+right);
+            return root->data + max(left,right);
+        }
+        else if(root->left){
+            return root->data+left;
+        }
+        else
+        return root->data+right;
+        
+       
+    }
+
+    int maxPathSum(Node* root)
+    {
+        // code here
+      int sum = INT_MIN;
+      int val =  maxSum(root,sum);
+      if(root->left && root->right)
+      return sum;
+      return max(sum,val);   
+        
+    }
+};
